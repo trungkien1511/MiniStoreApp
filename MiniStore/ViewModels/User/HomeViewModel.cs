@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MiniStore.ViewModels
+namespace MiniStore.ViewModels.User
 {
-    class SanPhamViewModel
+    internal class HomeViewModel
     {
     }
 }

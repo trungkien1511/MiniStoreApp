@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace MiniStore.Views
+namespace MiniStore.Views.User
 {
     /// <summary>
-    /// Interaction logic for SanPhamView.xaml
+    /// Interaction logic for Test.xaml
     /// </summary>
-    public partial class SanPhamView : Window
+    public partial class Test : Window
     {
-        public SanPhamView()
+        public Test()
         {
             InitializeComponent();
         }
