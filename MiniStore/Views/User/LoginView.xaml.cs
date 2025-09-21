@@ -10,15 +10,8 @@ namespace MiniStore.Views
         public LoginView()
         {
             InitializeComponent();
-            this.DataContext = new LoginViewModel();
         }
 
-        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            if (this.DataContext is LoginViewModel vm && sender is PasswordBox pb)
-            {
-                vm.Password = pb.Password;
-            }
-        }
+        
     }
 }

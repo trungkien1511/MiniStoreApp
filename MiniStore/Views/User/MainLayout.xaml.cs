@@ -8,10 +8,7 @@ namespace MiniStore.Views.User
         public MainLayout()
         {
             InitializeComponent();
-
-            // Tạo instance của Home và gán vào ContentControl
-            Home homePage = new Home();
-            MainContent.Content = homePage;
+            MainFrame.Navigate(new Home());
         }
     }
 }

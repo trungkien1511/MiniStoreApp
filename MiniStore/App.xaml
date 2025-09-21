@@ -4,5 +4,44 @@
              StartupUri="Views/User/MainLayout.xaml">
     <Application.Resources>
 
+        <!-- Style cơ bản cho tất cả Button -->
+        <Style x:Key="BaseButton" TargetType="Button">
+            <!-- Thuộc tính chung -->
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Padding" Value="10,6"/>
+            <Setter Property="BorderThickness" Value="1"/>
+
+            <!-- Template bo góc -->
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="5"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Button nền trắng -->
+        <Style x:Key="WhiteButton" TargetType="Button" BasedOn="{StaticResource BaseButton}">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="Red"/>
+            <Setter Property="BorderBrush" Value="Red"/>
+        </Style>
+
+        <!-- Button nền đỏ -->
+        <Style x:Key="RedButton" TargetType="Button" BasedOn="{StaticResource BaseButton}">
+            <Setter Property="Background" Value="#E53935"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#E53935"/>
+        </Style>
+
     </Application.Resources>
 </Application>

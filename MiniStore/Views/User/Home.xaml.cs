@@ -14,16 +14,22 @@ namespace MiniStore.Views.User
     /// <summary>
     /// Interaction logic for Home.xaml
     /// </summary>
-    public partial class Home : UserControl
+    public partial class Home : Page
     {
         public ObservableCollection<Product> Products { get; set; }
 
         public Home()
         {
             InitializeComponent();
+        }
 
-            this.DataContext = new HomeViewModel();
+        private void ProductCard_Click(object sender, RoutedEventArgs e)
+        {
+
+            var mainWindow = (MainLayout)Application.Current.MainWindow;
+            mainWindow.MainFrame.Navigate(new Cart());
 
         }
+        
     }
 }

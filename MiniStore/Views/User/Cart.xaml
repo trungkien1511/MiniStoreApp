@@ -1,25 +1,132 @@
-﻿<UserControl x:Class="MiniStore.Views.User.Cart"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MiniStore.Views.User"
-        mc:Ignorable="d"
-        Width="1200" Height="600">
-    <Grid>
-        <Grid Background="White">
+﻿<Page x:Class="MiniStore.Views.User.Cart"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             Width="1200" Height="600">
+    <Grid Background="White" Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Cột bên trái: Danh sách sản phẩm trong giỏ hàng -->
+        <Grid Height="80" Margin="0,5" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="3*"/>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="Auto"/>
+                <!-- Ảnh -->
+                <ColumnDefinition Width="*"/>
+                <!-- Tên sản phẩm -->
+                <ColumnDefinition Width="Auto"/>
+                <!-- Giá -->
+                <ColumnDefinition Width="Auto"/>
+                <!-- Tăng/giảm số lượng -->
+                <ColumnDefinition Width="Auto"/>
+                <!-- Xóa -->
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="1"   HorizontalAlignment="Center" Width="300">
-                <StackPanel Orientation="Horizontal" Margin="10,0,5,0">
 
-                    <Label Content="Tạm tính giỏ hàng:" Margin="0 0 50 0"/>
-                    <Label Content="Tạm tính giỏ hàng:"/>
-                </StackPanel>
+            <!-- Ảnh -->
+            <Image Source="/Image/coca.jpg" Width="50" Height="50" Grid.Column="0"/>
 
+            <!-- Tên sản phẩm -->
+            <TextBlock Text="Coca Cola 1.5L"
+               FontSize="16"
+               VerticalAlignment="Center"
+               Margin="10,0"
+               Grid.Column="1"/>
+
+            <!-- Giá -->
+            <TextBlock Text="58.100 đ"
+               FontSize="16"
+               VerticalAlignment="Center"
+               Margin="10,0"
+               Grid.Column="2"/>
+
+            <!-- Nút tăng/giảm số lượng -->
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Column="3" Margin="10,0">
+                <Button Content="−" Width="30" Height="30" Style="{StaticResource WhiteButton}"/>
+                <TextBlock Text="1" FontSize="16" Width="30" TextAlignment="Center" VerticalAlignment="Center"/>
+                <Button Content="+" Width="30" Height="30" Style="{StaticResource WhiteButton}"/>
             </StackPanel>
+
+            <!-- Nút xóa -->
+            <Button Grid.Column="4" Content="✕"
+            Width="30" Height="30"
+            Margin="10,0"
+            VerticalAlignment="Center"
+            Style="{StaticResource WhiteButton}"/>
+        </Grid>
+
+
+        <!-- Cột bên phải: Thông tin giỏ hàng -->
+        <Grid Grid.Column="1" Margin="10,20,20,10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Tóm tắt đơn    hàng -->
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Tạm tính giỏ hàng:" FontSize="16" Grid.Row="0" Grid.Column="0" Margin="0,0,0,5"/>
+                <TextBlock Text="58.100 đ" FontSize="16" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" Margin="10,0,0,5"/>
+
+                <TextBlock Text="Tạm tính sản phẩm KM:" FontSize="16" Grid.Row="1" Grid.Column="0" Margin="0,0,0,5"/>
+                <TextBlock Text="0 đ" FontSize="16" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Margin="10,0,0,5"/>
+
+                <TextBlock Text="Tiết kiệm được:" FontSize="16" Grid.Row="2" Grid.Column="0" Margin="0,0,0,5"/>
+                <TextBlock Text="0 đ" FontSize="16" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" Margin="10,0,0,5"/>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="0" Margin="0,0,0,5">
+                    <TextBlock Text="Phí vận chuyển" FontSize="16"/>
+                    <TextBlock Text=" ?" Foreground="Gray" FontWeight="Bold" Margin="5,0,0,0" FontSize="16"/>
+                </StackPanel>
+                <TextBlock Text="2.800 đ" FontSize="16" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" Margin="10,0,0,5"/>
+
+                <TextBlock Text="Khuyến mại" FontSize="16" Grid.Row="4" Grid.Column="0" Margin="0,0,0,5"/>
+                <TextBlock Text="0 đ" FontSize="16" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" Margin="10,0,0,5"/>
+
+                <TextBlock Text="Thành tiền:" FontSize="16" FontWeight="Bold" Grid.Row="5" Grid.Column="0" Margin="0,0,0,5"/>
+                <TextBlock Text="60.900 đ" FontSize="16" FontWeight="Bold" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" Margin="10,0,0,5"/>
+
+                <TextBlock Text="(Giá đã bao gồm VAT)" FontSize="14"
+                           Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2"
+                           FontStyle="Italic" Foreground="Gray" Margin="0,0,0,5"/>
+            </Grid>
+
+            <Button Grid.Row="1" Height="40" Margin="0,10,0,0"
+                Style="{StaticResource RedButton}">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock Text="&#xE8AB;" FontFamily="Segoe MDL2 Assets" FontSize="18" Margin="0,0,8,0"/>
+                    <TextBlock Text="Mã Giảm Giá" FontSize="16"/>
+                </StackPanel>
+            </Button>
+
+            <!-- Nút thanh toán -->
+            <Button Grid.Row="2" Height="60" Margin="0,10,0,10"
+                Style="{StaticResource RedButton}"
+                FontSize="16"
+                >
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="THANH TOÁN" TextAlignment="Center"/>
+                    <TextBlock Text="60.900 đ" TextAlignment="Center"/>
+                </StackPanel>
+            </Button>
         </Grid>
     </Grid>
-</UserControl>
+</Page>

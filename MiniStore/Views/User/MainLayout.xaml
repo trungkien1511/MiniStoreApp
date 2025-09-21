@@ -7,7 +7,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <!-- HeaderBar -->
+            <!-- Header -->
             <RowDefinition Height="*"/>
             <!-- Content -->
         </Grid.RowDefinitions>
@@ -15,9 +15,10 @@
         <!-- HeaderBar -->
         <user:HeaderBar Grid.Row="0"/>
 
-        <!-- Phần nội dung -->
-        <Grid Grid.Row="1" Background="#f1f1f1">
-            <ContentControl  x:Name="MainContent" Margin="200 10 200 0" />
-        </Grid>
+        <!-- Content hiển thị Page -->
+        <Frame x:Name="MainFrame"
+               Grid.Row="1"
+               NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>
+    

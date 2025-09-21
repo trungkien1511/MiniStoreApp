@@ -10,23 +10,22 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace MiniStore.Views.User
 {
     /// <summary>
-    /// Interaction logic for Cart.xaml
+    /// Interaction logic for ProductDetail.xaml
     /// </summary>
-    public partial class Cart : Page
+    public partial class ProductDetail : Page
     {
-        public Cart()
+        public ProductDetail()
         {
             InitializeComponent();
+            
         }
 
-        private void Button_Click()
-        {
-
-        }
+        
     }
 }
