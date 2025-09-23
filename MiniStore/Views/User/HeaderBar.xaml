@@ -2,6 +2,40 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              Height="Auto" Width="Auto">
+    <UserControl.Resources>
+        <!-- Style chung cho button ở Header -->
+        <Style x:Key="HeaderBarButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="0"
+                                CornerRadius="4">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <!-- Hover: không đổi màu -->
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="Transparent"/>
+                                <Setter TargetName="border" Property="BorderBrush" Value="Transparent"/>
+                            </Trigger>
+                            <!-- Click (Pressed): đổi màu -->
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#333333"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -30,62 +64,86 @@
 
                 <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
                     <!-- Search Box -->
-                    <TextBox Width="300" Height="34"
-                    VerticalContentAlignment="Center"
-                    Foreground="Black"
-                    FontSize="14"
-                    Padding="15,0,30,0"
-                    Text=""
-                    Margin="0,0,20,0">
+                    <TextBox x:Name="SearchTextBox"
+                         Width="300" Height="34"
+                         VerticalContentAlignment="Center"
+                         Foreground="Black"
+                         FontSize="14"
+                         Padding="15,0,30,0"
+                         Margin="0,0,20,0"
+                         KeyDown="SearchTextBox_KeyDown">
                         <TextBox.Template>
                             <ControlTemplate TargetType="{x:Type TextBox}">
                                 <Grid>
                                     <Border CornerRadius="15"
-                                BorderBrush="Gray"
-                                BorderThickness="1"
-                                Background="White"/>
+                        BorderBrush="Gray"
+                        BorderThickness="1"
+                        Background="White"/>
                                     <ScrollViewer x:Name="PART_ContentHost"
-                                        Margin="10,0,30,0"
-                                        VerticalAlignment="Center"/>
+                              Margin="10,0,30,0"
+                              VerticalAlignment="Center"/>
                                     <TextBlock FontFamily="Segoe MDL2 Assets"
-                                    Text="&#xE721;"
-                                    FontSize="16"
-                                    Foreground="Gray"
-                                    VerticalAlignment="Center"
-                                    HorizontalAlignment="Right"
-                                    Margin="0,0,10,0"/>
+                           Text="&#xE721;"
+                           FontSize="16"
+                           Foreground="Gray"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Right"
+                           Margin="0,0,10,0"/>
                                 </Grid>
                             </ControlTemplate>
                         </TextBox.Template>
                     </TextBox>
 
+
                     <!-- Giỏ hàng -->
-                    <Button Background="Transparent" BorderBrush="Transparent" Padding="5" Cursor="Hand" Margin="0,0,20,0" VerticalAlignment="Center">
+                    <Button x:Name="CartButton"
+                        Style="{StaticResource HeaderBarButtonStyle}"
+                        Margin="0,0,20,0"
+                        VerticalAlignment="Center"
+                        Click="CartButton_Click">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                             <TextBlock Text="&#xE7BF;" FontFamily="Segoe MDL2 Assets"
-                            FontSize="20" Foreground="White" Margin="0,0,5,0" FontWeight="DemiBold"/>
-                            <TextBlock Text="Giỏ hàng" FontSize="16" Foreground="White" FontWeight="DemiBold"/>
+                                   FontSize="20" Foreground="White" 
+                                   Margin="0,0,5,0" FontWeight="DemiBold"/>
+                            <TextBlock Text="Giỏ hàng" 
+                                   FontSize="16" Foreground="White" FontWeight="DemiBold"/>
                         </StackPanel>
                     </Button>
-
+                    
                     <!-- User menu -->
-                    <Menu Background="Transparent" VerticalAlignment="Center" BorderThickness="0">
-                        <MenuItem Header="&#xE77B;  Tài khoản"
-                        FontFamily="Segoe MDL2 Assets"
-                        FontSize="16"
-                        Foreground="White">
-                            <MenuItem Header="Thông tin cá nhân"/>
-                            <MenuItem Header="Đổi mật khẩu"/>
-                            <MenuItem Header="Đăng xuất"/>
+                    <Menu Background="Transparent"
+                      VerticalAlignment="Center"
+                      BorderThickness="0">
+                        <MenuItem FontSize="16"
+                            Foreground="White"
+                            Background="Transparent">
+                            <!-- Header hiển thị icon + text -->
+                            <MenuItem.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <!-- Icon -->
+                                    <TextBlock Text="&#xE77B;"
+                                        FontFamily="Segoe MDL2 Assets"
+                                        Margin="0,0,5,0"/>
+                                    <!-- Text -->
+                                    <TextBlock Text="Tài khoản"
+                                        FontFamily="Segoe UI"/>
+                                </StackPanel>
+                            </MenuItem.Header>
+
+                            <!-- Submenu: chỉ hiện khi hover -->
+                            <MenuItem Header="Thông tin cá nhân" Foreground="Black"/>
+                            <MenuItem Header="Đổi mật khẩu" Foreground="Black"/>
+                            <MenuItem Header="Đăng xuất" Foreground="Black"/>
                         </MenuItem>
                     </Menu>
+
                 </StackPanel>
             </Grid>
         </Grid>
 
         <!-- Thanh danh mục -->
         <Grid Background="#f1f1f1" Grid.Row="1" >
-            <Grid Margin="200,0,200,0">
+            <Grid Margin="200,10,200,10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -93,20 +151,30 @@
 
                 <!-- Nút danh mục -->
                 <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
-                    <Button Background="Transparent" BorderBrush="Transparent" Padding="5">
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                            <TextBlock Text="&#xE8FD;" FontFamily="Segoe MDL2 Assets"
-                               FontSize="18" Foreground="Black"
-                               Margin="0,0,10,0" FontWeight="DemiBold"/>
-                            <TextBlock Text="Danh mục sản phẩm"
-                               FontSize="14" Foreground="Black" FontWeight="DemiBold"/>
-                        </StackPanel>
-                    </Button>
+                    <Menu Background="Transparent" BorderThickness="0">
+                        <MenuItem x:Name="CategoryMenu" Click="Category_Click">
+                            <MenuItem.Header>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <TextBlock Text="&#xE8FD;" 
+                                       FontFamily="Segoe MDL2 Assets"
+                                       FontSize="18" 
+                                       Foreground="Black"
+                                       Margin="0,0,10,0" 
+                                       FontWeight="DemiBold"/>
+                                    <TextBlock Text="Danh mục sản phẩm"
+                                       FontSize="14" 
+                                       Foreground="Black" 
+                                       FontWeight="DemiBold"/>
+                                </StackPanel>
+                            </MenuItem.Header>
+                        </MenuItem>
+                    </Menu>
                 </StackPanel>
+
 
                 <!-- Tin tức -->
                 <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                    <Button Background="Transparent" BorderBrush="Transparent" Padding="5">
+                    <Button Style="{StaticResource HeaderBarButtonStyle}" Background="Transparent" BorderBrush="Transparent" Padding="5">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                             <TextBlock Text="&#xE715;" FontFamily="Segoe MDL2 Assets"
                                FontSize="18" Foreground="Black"
@@ -116,8 +184,8 @@
                     </Button>
                 </StackPanel>
 
+                </Grid>
             </Grid>
-        </Grid>
 
         <Border Height="2" Background="Black" Grid.Row="2">
             <Border.Effect>

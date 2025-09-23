@@ -4,21 +4,32 @@
         xmlns:user="clr-namespace:MiniStore.Views.User"
         Title="MainLayout" Height="900" Width="1200">
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <!-- Header -->
-            <RowDefinition Height="*"/>
-            <!-- Content -->
-        </Grid.RowDefinitions>
-
-        <!-- HeaderBar -->
-        <user:HeaderBar Grid.Row="0"/>
-
-        <!-- Content hiển thị Page -->
-        <Frame x:Name="MainFrame"
-               Grid.Row="1"
-               NavigationUIVisibility="Hidden"/>
-    </Grid>
+    <ScrollViewer VerticalScrollBarVisibility="Auto"
+              HorizontalScrollBarVisibility="Disabled">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <!-- Header -->
+                <RowDefinition Height="*"/>
+                <!-- Content -->
+            </Grid.RowDefinitions>
+            
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10" Grid.Row="0">
+                <Button Content="⬅ Quay lại" Width="100" Margin="5" Click="Back_Click"/>
+                <Button Content="➡ Tiếp theo" Width="100" Margin="5" Click="Forward_Click"/>
+            </StackPanel>
+            
+            <!-- HeaderBar -->
+            <user:HeaderBar Grid.Row="1"/>
+                
+            <!-- Content hiển thị Page -->
+            <Frame x:Name="MainFrame"
+                   Grid.Row="2"
+                   NavigationUIVisibility="Hidden"
+                   Margin="200 10"/>
+        </Grid>
+    </ScrollViewer>
+    
 </Window>
     

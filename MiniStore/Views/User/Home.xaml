@@ -37,35 +37,35 @@
 
         <DataTemplate x:Key="ProductCardTemplate">
             <Button Tag="{Binding}" 
-                            Click="ProductCard_Click"
-                            BorderThickness="0"
-                            Background="Transparent"
-                            Padding="0"
-                            Cursor="Hand">
-                <Border Width="150" Margin="10" CornerRadius="8" Background="White" Padding="8" MouseLeftButtonUp="ProductCard_Click">
+                Click="ProductCard_Click"
+                BorderThickness="0"
+                Background="Transparent"
+                Padding="0"
+                Cursor="Hand">
+                <Border Width="250" Margin="10" CornerRadius="8" Background="White" Padding="8" Height="350">
                     <Border.Effect>
                         <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="3" Opacity="0.3"/>
                     </Border.Effect>
                     <StackPanel>
                         <!-- Ảnh -->
-                        <Border Height="100" Background="#F9F9F9" CornerRadius="8" Margin="0,0,0,10">
+                        <Border Height="150" Background="#F9F9F9" CornerRadius="8" Margin="0,0,0, 30">
                             <Image Source="{Binding ImagePath}" Stretch="Uniform"/>
-
                         </Border>
 
                         <!-- Tên -->
-                        <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="14"
-                                   HorizontalAlignment="Center" Margin="0,0,0,8"/>
+                        <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="16"
+                           HorizontalAlignment="Center" Margin="0,0,0,16" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap"/>
 
                         <!-- Giá -->
-                        <TextBlock Text="{Binding Price}" Foreground="Red" FontWeight="SemiBold" FontSize="13"
-                                   HorizontalAlignment="Center" Margin="0,0,0,8"/>
+                        <TextBlock Text="{Binding Price, StringFormat={}{0:N0} đ}" 
+                           Foreground="Red" FontWeight="SemiBold" FontSize="14"
+                           HorizontalAlignment="Center" Margin="0,0,0,50"/>
 
                         <!-- Nút -->
-                        <Button Style="{StaticResource RoundedButton}" Padding="5 6">
+                        <Button Style="{StaticResource RoundedButton}" Padding="5 6" >
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                 <TextBlock Text="&#xE7BF;" FontFamily="Segoe MDL2 Assets"
-                                           FontSize="16" Margin="0,0,5,0"/>
+                                   FontSize="16" Margin="0,0,5,0"/>
                                 <TextBlock Text="Thêm vào giỏ" FontSize="14" FontWeight="SemiBold"/>
                             </StackPanel>
                         </Button>
@@ -73,60 +73,15 @@
                 </Border>
             </Button>
         </DataTemplate>
-
     </Page.Resources>
 
-
-    <ScrollViewer  VerticalScrollBarVisibility="Auto" HorizontalAlignment="Center">
-        <ItemsControl>
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel Orientation="Horizontal"/>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-
-            <!-- Card sản phẩm -->
-            <Button Click="ProductCard_Click" 
-                Tag="Sản phẩm A"    
-                    BorderThickness="0" 
-                    Background="Transparent" 
-                    Padding="0" 
-                    Cursor="Hand">
-
-                <Border Width="200" Margin="10" CornerRadius="8" Height="300"
-                        Background="White"
-                        Padding="8">
-                    <Border.Effect>
-                        <DropShadowEffect Color="Black"
-                                BlurRadius="10"
-                                ShadowDepth="3"
-                                Opacity="0.3"/>
-                    </Border.Effect>
-
-                    <StackPanel>
-                        <!-- Ảnh -->
-                        <Border Height="180" Background="#F9F9F9" CornerRadius="8" Margin="0,0,0,10">
-                            <Image Source="Images/sp1.png" Stretch="Uniform"/>
-                        </Border>
-
-                        <!-- Tên sản phẩm -->
-                        <TextBlock Text="Sản phẩm A"
-                            FontWeight="Bold"
-                            FontSize="14"
-                            HorizontalAlignment="Center"
-                            Margin="0,0,0,8"/>
-
-                        <!-- Giá -->
-                        <TextBlock Text="100.000đ"
-                            Foreground="Red"
-                            FontWeight="SemiBold"
-                            FontSize="13"
-                            HorizontalAlignment="Center"
-                            Margin="0,0,0,8"/>
-                    </StackPanel>
-                </Border>
-            </Button>
-
-        </ItemsControl>
-    </ScrollViewer>
+    <ItemsControl x:Name="ProductItemsControl"
+                      ItemTemplate="{StaticResource ProductCardTemplate}"
+                  HorizontalAlignment="Center">
+        <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+                <WrapPanel />
+            </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+    </ItemsControl>
 </Page>
