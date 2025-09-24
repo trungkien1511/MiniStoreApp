@@ -1,10 +1,11 @@
-﻿using System;
+﻿using MiniStore.Helpers;
+using MiniStore.Models;
+using MiniStore.Views.User;
+using System;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows;
-using MiniStore.Models;
-using MiniStore.Views.User;
 
 namespace MiniStore.Views
 {
@@ -39,6 +40,9 @@ namespace MiniStore.Views
                 if (user != null)
                 {
                     MessageBox.Show($"Đăng nhập thành công! Xin chào {user.FullName}");
+                    CurrentUser.UserID = user.UserID;
+                    CurrentUser.UserName = user.Username;
+
                     var mainWindow = new MainLayout();
                     mainWindow.Show();
 

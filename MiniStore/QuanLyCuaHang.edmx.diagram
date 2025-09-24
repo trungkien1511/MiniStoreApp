@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="17c51ba3b15740caa07683f0abbefd69" Name="Diagram1">
+      <Diagram DiagramId="17c51ba3b15740caa07683f0abbefd69" Name="Diagram1" ZoomLevel="74">
         <EntityTypeShape EntityType="MiniStoreModel.User" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MiniStoreModel.Category" Width="1.5" PointX="3.375" PointY="5.75" />
         <EntityTypeShape EntityType="MiniStoreModel.Product" Width="1.5" PointX="5.625" PointY="1" />
@@ -16,6 +16,10 @@
         <AssociationConnector Association="MiniStoreModel.FK_Cart_Users" />
         <AssociationConnector Association="MiniStoreModel.FK_CartDetails_Cart" />
         <AssociationConnector Association="MiniStoreModel.FK_CartDetails_Products" />
+        <EntityTypeShape EntityType="MiniStoreModel.Order" Width="1.5" PointX="8.625" PointY="5.25" />
+        <EntityTypeShape EntityType="MiniStoreModel.OrderDetail" Width="1.5" PointX="10.875" PointY="5.375" />
+        <AssociationConnector Association="MiniStoreModel.FK_OrderDetails_Orders1" />
+        <AssociationConnector Association="MiniStoreModel.FK_OrderDetails_Products1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

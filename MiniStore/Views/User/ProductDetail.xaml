@@ -5,19 +5,20 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d"
       Title="Chi tiết sản phẩm">
+
     <Grid Margin="20" HorizontalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="500"/>
-            <!-- Cột ảnh -->
             <ColumnDefinition Width="*"/>
-            <!-- Cột thông tin -->
         </Grid.ColumnDefinitions>
 
         <!-- ===== CỘT 1: ẢNH SẢN PHẨM ===== -->
-        <StackPanel Grid.Column="0" Margin="10" >
-            <!-- Ảnh chính -->
+        <StackPanel Grid.Column="0" Margin="10">
             <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="5">
-                <Image Source="/Image/milo.jpg" Stretch="Uniform" Height="300"  x:Name="ProductImage"/>
+                <Image x:Name="ProductImage"
+                       Source="/Image/milo.jpg"
+                       Stretch="Uniform"
+                       Height="300"/>
             </Border>
 
             <!-- Ảnh nhỏ (thumbnails) -->
@@ -34,20 +35,26 @@
             </StackPanel>
         </StackPanel>
 
-
         <!-- ===== CỘT 2: THÔNG TIN ===== -->
-        <StackPanel Grid.Column="1" Margin="20,10" >
+        <StackPanel Grid.Column="1" Margin="20,10">
             <!-- Tên sản phẩm -->
-            <TextBlock Text="Sữa uống Milo ít đường Nestle lốc 4 hộp x 180ml"
-                       FontSize="20" FontWeight="Bold" TextWrapping="Wrap"
-                       Margin="0,0,0,10"
-                       x:Name="ProductName"/>
+            <TextBlock x:Name="ProductName"
+                       Text="Tên sản phẩm"
+                       FontSize="20" FontWeight="Bold"
+                       TextWrapping="Wrap"
+                       Margin="0,0,0,10"/>
 
             <!-- Giá -->
-            <TextBlock x:Name="ProductPrice" FontSize="16" Foreground="Red" FontWeight="Bold"/>
+            <TextBlock x:Name="ProductPrice"
+                       FontSize="16"
+                       Foreground="Red"
+                       FontWeight="Bold"/>
 
             <!-- Tình trạng -->
-            <TextBlock x:Name="ProductStatus" FontSize="15" Foreground="Green" Margin="0,0,0,20"/>
+            <TextBlock x:Name="ProductStatus"
+                       FontSize="15"
+                       Foreground="Green"
+                       Margin="0,0,0,20"/>
 
             <!-- Vận chuyển -->
             <StackPanel Margin="0,0,0,20">
@@ -58,14 +65,26 @@
             <!-- Chọn số lượng -->
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,0,20">
                 <Button x:Name="BtnMinus" Content="-" Width="30" Height="30" Click="BtnMinus_Click"/>
-                <TextBlock x:Name="TxtQuantity" Text="1" Width="30" TextAlignment="Center" VerticalAlignment="Center" FontSize="16"/>
+                <TextBlock x:Name="TxtQuantity"
+                           Text="1"
+                           Width="30"
+                           TextAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontSize="16"/>
                 <Button x:Name="BtnPlus" Content="+" Width="30" Height="30" Click="BtnPlus_Click"/>
             </StackPanel>
 
-            <Button Content="🛒  THÊM VÀO GIỎ" Style="{StaticResource RedButton}" Height="45" Width="200"
-                    FontSize="16" FontWeight="Bold" HorizontalAlignment="Left" Margin="10 0"/>
-
             <!-- Nút thêm giỏ -->
+            <Button x:Name="btnCart"
+                    Content="🛒 THÊM VÀO GIỎ"
+                    Style="{StaticResource RedButton}"
+                    Height="45"
+                    Width="200"
+                    FontSize="16"
+                    FontWeight="Bold"
+                    HorizontalAlignment="Left"
+                    Margin="10 0"
+                    Click="Cart_Click"/>
         </StackPanel>
     </Grid>
 </Page>

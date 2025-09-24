@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -44,41 +45,53 @@ namespace MiniStore.Views.User
             }
         }
 
-        private void Category_Click(object sender, RoutedEventArgs e)
+        private void EnsureHome(Action<Home> action)
         {
-            if (sender is MenuItem menuItem && menuItem.Tag is Category category)
+            if (Application.Current.MainWindow is MainLayout mainWindow)
             {
-                // Lấy MainWindow để gọi Home Page
-                var mainWindow = (MainLayout)Application.Current.MainWindow;
+                void RunAction(Home home) => action?.Invoke(home);
+
                 if (mainWindow.MainFrame.Content is Home homePage)
                 {
-                    if (category.Name == "Tất cả sản phẩm") // kiểm tra tên category
-                    {
-                        homePage.LoadProducts(); // load tất cả sản phẩm
-                    }
-                    else
-                    {
-                        homePage.LoadProductsByCategory(category.CategoryID); // load theo category
-                    }
+                    // Nếu đang ở Home → thực hiện ngay
+                    RunAction(homePage);
+                }
+                else
+                {
+                    // Nếu không phải Home → tạo mới, Navigate và gọi action khi Loaded
+                    var homePageNew = new Home();
+                    mainWindow.MainFrame.Navigate(homePageNew);
+                    homePageNew.Loaded += (s, e) => RunAction(homePageNew);
                 }
             }
         }
 
+        private void Category_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem menuItem && menuItem.Tag is Category category)
+            {
+                EnsureHome(home =>
+                {
+                    if (string.Equals(category.Name, "Tất cả sản phẩm", StringComparison.OrdinalIgnoreCase))
+                        home.LoadProducts();
+                    else
+                        home.LoadProductsByCategory(category.CategoryID);
+                });
+            }
+        }
         private void SearchTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            // Nếu nhấn Enter mới tìm
             if (e.Key != Key.Enter) return;
 
             string keyword = SearchTextBox.Text.Trim();
             if (string.IsNullOrEmpty(keyword)) return;
 
-            // Lấy MainWindow để truy cập Home
-            if (Application.Current.MainWindow is MainLayout mainWindow &&
-                mainWindow.MainFrame.Content is Home homePage)
+            EnsureHome(home =>
             {
-                homePage.SearchProductsByName(keyword);
-            }
+                home.SearchProductsByName(keyword);
+            });
         }
+
 
     }
 }

@@ -91,7 +91,14 @@
       <DependentUpon>QuanLyCuaHang.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\DatabaseHelper.cs" />
+    <Compile Include="Helpers\CurrentUser.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Order.cs">
+      <DependentUpon>QuanLyCuaHang.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OrderDetail.cs">
+      <DependentUpon>QuanLyCuaHang.tt</DependentUpon>
+    </Compile>
     <Compile Include="Product.cs">
       <DependentUpon>QuanLyCuaHang.tt</DependentUpon>
     </Compile>
@@ -116,6 +123,7 @@
     <Compile Include="User.cs">
       <DependentUpon>QuanLyCuaHang.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\User\CartItemViewModel.cs" />
     <Compile Include="ViewModels\User\HomeViewModel.cs" />
     <Compile Include="ViewModels\User\LoginViewModel.cs" />
     <Compile Include="Views\User\Cart.xaml.cs">
@@ -132,6 +140,12 @@
     </Compile>
     <Compile Include="Views\User\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\User\OrderSuccess.xaml.cs">
+      <DependentUpon>OrderSuccess.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\User\OrderView.xaml.cs">
+      <DependentUpon>OrderView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\User\ProductDetail.xaml.cs">
       <DependentUpon>ProductDetail.xaml</DependentUpon>
@@ -168,6 +182,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\User\LoginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\User\OrderSuccess.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\User\OrderView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -213,7 +235,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Image\coca.jpg" />

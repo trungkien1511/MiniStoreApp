@@ -12,62 +12,103 @@
         </Grid.ColumnDefinitions>
 
         <!-- Cột bên trái: Danh sách sản phẩm trong giỏ hàng -->
-        <Grid Height="80" Margin="0,5" VerticalAlignment="Top">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <!-- Ảnh -->
-                <ColumnDefinition Width="*"/>
-                <!-- Tên sản phẩm -->
-                <ColumnDefinition Width="Auto"/>
-                <!-- Giá -->
-                <ColumnDefinition Width="Auto"/>
-                <!-- Tăng/giảm số lượng -->
-                <ColumnDefinition Width="Auto"/>
-                <!-- Xóa -->
-            </Grid.ColumnDefinitions>
+        <ListView x:Name="CartList" Margin="10" Background="White" BorderThickness="0">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="8" Padding="5" Margin="0,5" HorizontalAlignment="Stretch">
+                        <Grid Height="80" VerticalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <!-- Ảnh -->
+                                <ColumnDefinition Width="*"/>
+                                <!-- Tên -->
+                                <ColumnDefinition Width="Auto"/>
+                                <!-- Giá -->
+                                <ColumnDefinition Width="Auto"/>
+                                <!-- Số lượng -->
+                                <ColumnDefinition Width="Auto"/>
+                                <!-- Xóa -->
+                            </Grid.ColumnDefinitions>
 
-            <!-- Ảnh -->
-            <Image Source="/Image/coca.jpg" Width="50" Height="50" Grid.Column="0"/>
+                            <!-- Ảnh sản phẩm -->
+                            <Image Source="{Binding Product.ImagePath}" 
+                           Width="50" Height="50" 
+                           Stretch="UniformToFill"
+                           VerticalAlignment="Center"
+                           Grid.Column="0"/>
 
-            <!-- Tên sản phẩm -->
-            <TextBlock Text="Coca Cola 1.5L"
-               FontSize="16"
+                            <!-- Tên sản phẩm -->
+                            <TextBlock Text="{Binding ProductName}" 
+                               FontSize="16"
+                               VerticalAlignment="Center"
+                               Margin="10,0"
+                               Grid.Column="1"/>
+
+                            <!-- Giá (hiện giá bán + giá gạch ngang nếu có) -->
+                            <StackPanel Orientation="Vertical" VerticalAlignment="Center" Grid.Column="2" Margin="10,0">
+                                <TextBlock Text="{Binding UnitPrice, StringFormat={}{0:N0} đ}" 
+                                   FontSize="16" Foreground="DarkGreen"/>
+                            </StackPanel>
+
+                            <!-- Nút tăng/giảm số lượng -->
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Column="3" Margin="10,0">
+                                <!-- Nút giảm số lượng -->
+                                <Button Content="−" Width="30" Height="30" 
+                                    Style="{StaticResource WhiteButton}"
+                                    Tag="{Binding CartDetailID}" Click="BtnDecrease_Click"/>
+                                
+                                <TextBlock Text="{Binding Quantity}" 
+                                   FontSize="16" 
+                                   Width="30" 
+                                   TextAlignment="Center" 
+                                   VerticalAlignment="Center"
+                                   x:Name="lblQuantity"/>
+                                
+                                <!-- Nút tăng số lượng -->
+                                <Button Content="+" Width="30" Height="30"
+                                    Style="{StaticResource WhiteButton}"
+                                    Tag="{Binding CartDetailID}" Click="BtnIncrease_Click"/>
+                            </StackPanel>
+
+                            <!-- Nút xóa -->
+                            <Button Click="Btn_Delete" Grid.Column="4" Content="x"
+                                Width="30" Height="30"
+                                Margin="10 0"
+                                VerticalAlignment="Center"
+                                Style="{StaticResource WhiteButton}"
+                                Foreground="Red"
+                                Tag="{Binding CartDetailID}"/>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <!-- Thông báo giỏ hàng trống -->
+        <TextBlock x:Name="EmptyCartMessage"
+               Text="Không có sản phẩm trong giỏ hàng"
+               FontSize="18"
+               FontWeight="Bold"
+               Foreground="Gray"
+               HorizontalAlignment="Center"
                VerticalAlignment="Center"
-               Margin="10,0"
-               Grid.Column="1"/>
-
-            <!-- Giá -->
-            <TextBlock Text="58.100 đ"
-               FontSize="16"
-               VerticalAlignment="Center"
-               Margin="10,0"
-               Grid.Column="2"/>
-
-            <!-- Nút tăng/giảm số lượng -->
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Column="3" Margin="10,0">
-                <Button Content="−" Width="30" Height="30" Style="{StaticResource WhiteButton}"/>
-                <TextBlock Text="1" FontSize="16" Width="30" TextAlignment="Center" VerticalAlignment="Center"/>
-                <Button Content="+" Width="30" Height="30" Style="{StaticResource WhiteButton}"/>
-            </StackPanel>
-
-            <!-- Nút xóa -->
-            <Button Grid.Column="4" Content="✕"
-            Width="30" Height="30"
-            Margin="10,0"
-            VerticalAlignment="Center"
-            Style="{StaticResource WhiteButton}"/>
-        </Grid>
-
+               Visibility="Collapsed"
+               Grid.ColumnSpan="2"/>
 
         <!-- Cột bên phải: Thông tin giỏ hàng -->
-        <Grid Grid.Column="1" Margin="10,20,20,10">
+        <Grid Grid.Column="1" Margin="10,20,20,10" x:Name="RightPanel">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <!-- Tóm tắt đơn    hàng -->
+            <!-- Tóm tắt đơn hàng -->
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -83,33 +124,33 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Text="Tạm tính giỏ hàng:" FontSize="16" Grid.Row="0" Grid.Column="0" Margin="0,0,0,5"/>
-                <TextBlock Text="58.100 đ" FontSize="16" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" Margin="10,0,0,5"/>
+                <TextBlock x:Name="txtSubtotalLabel" Text="Tạm tính giỏ hàng:" FontSize="16" Grid.Row="0" Grid.Column="0" Margin="0,0,0,5"/>
+                <TextBlock x:Name="txtSubtotalValue" FontSize="16" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" Margin="10,0,0,5"/>
 
-                <TextBlock Text="Tạm tính sản phẩm KM:" FontSize="16" Grid.Row="1" Grid.Column="0" Margin="0,0,0,5"/>
-                <TextBlock Text="0 đ" FontSize="16" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Margin="10,0,0,5"/>
+                <TextBlock x:Name="txtPromoSubtotalLabel" Text="Tạm tính sản phẩm KM:" FontSize="16" Grid.Row="1" Grid.Column="0" Margin="0,0,0,5"/>
+                <TextBlock x:Name="txtPromoSubtotalValue" Text="0 đ" FontSize="16" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Margin="10,0,0,5"/>
 
-                <TextBlock Text="Tiết kiệm được:" FontSize="16" Grid.Row="2" Grid.Column="0" Margin="0,0,0,5"/>
-                <TextBlock Text="0 đ" FontSize="16" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" Margin="10,0,0,5"/>
+                <TextBlock x:Name="txtSavedLabel" Text="Tiết kiệm được:" FontSize="16" Grid.Row="2" Grid.Column="0" Margin="0,0,0,5"/>
+                <TextBlock x:Name="txtSavedValue" FontSize="16" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" Margin="10,0,0,5"/>
 
                 <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="0" Margin="0,0,0,5">
-                    <TextBlock Text="Phí vận chuyển" FontSize="16"/>
-                    <TextBlock Text=" ?" Foreground="Gray" FontWeight="Bold" Margin="5,0,0,0" FontSize="16"/>
+                    <TextBlock x:Name="txtShippingLabel" Text="Phí vận chuyển" FontSize="16"/>
+                    <TextBlock x:Name="txtShippingHint" Text=" ?" Foreground="Gray" FontWeight="Bold" Margin="5,0,0,0" FontSize="16"/>
                 </StackPanel>
-                <TextBlock Text="2.800 đ" FontSize="16" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" Margin="10,0,0,5"/>
+                <TextBlock x:Name="txtShippingValue" Text="30.800 đ" FontSize="16" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" Margin="10,0,0,5"/>
 
-                <TextBlock Text="Khuyến mại" FontSize="16" Grid.Row="4" Grid.Column="0" Margin="0,0,0,5"/>
-                <TextBlock Text="0 đ" FontSize="16" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" Margin="10,0,0,5"/>
+                <TextBlock x:Name="txtDiscountLabel" Text="Khuyến mại" FontSize="16" Grid.Row="4" Grid.Column="0" Margin="0,0,0,5"/>
+                <TextBlock x:Name="txtDiscountValue" FontSize="16" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" Margin="10,0,0,5"/>
 
-                <TextBlock Text="Thành tiền:" FontSize="16" FontWeight="Bold" Grid.Row="5" Grid.Column="0" Margin="0,0,0,5"/>
-                <TextBlock Text="60.900 đ" FontSize="16" FontWeight="Bold" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" Margin="10,0,0,5"/>
+                <TextBlock x:Name="txtTotalLabel" Text="Thành tiền:" FontSize="16" FontWeight="Bold" Grid.Row="5" Grid.Column="0" Margin="0,0,0,5"/>
+                <TextBlock x:Name="txtTotalValue" FontSize="16" FontWeight="Bold" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" Margin="10,0,0,5"/>
 
-                <TextBlock Text="(Giá đã bao gồm VAT)" FontSize="14"
+                <TextBlock x:Name="txtVatNote" Text="(Giá đã bao gồm VAT)" FontSize="14"
                            Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2"
                            FontStyle="Italic" Foreground="Gray" Margin="0,0,0,5"/>
             </Grid>
 
-            <Button Grid.Row="1" Height="40" Margin="0,10,0,0"
+            <Button x:Name="btnDiscountCode" Grid.Row="1" Height="40" Margin="0,10,0,0"
                 Style="{StaticResource RedButton}">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <TextBlock Text="&#xE8AB;" FontFamily="Segoe MDL2 Assets" FontSize="18" Margin="0,0,8,0"/>
@@ -118,14 +159,11 @@
             </Button>
 
             <!-- Nút thanh toán -->
-            <Button Grid.Row="2" Height="60" Margin="0,10,0,10"
+            <Button x:Name="btnCheckout" Grid.Row="2" Height="60" Margin="0,10,0,10"
                 Style="{StaticResource RedButton}"
                 FontSize="16"
-                >
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="THANH TOÁN" TextAlignment="Center"/>
-                    <TextBlock Text="60.900 đ" TextAlignment="Center"/>
-                </StackPanel>
+                    Click="btnCheckout_Click">
+                
             </Button>
         </Grid>
     </Grid>

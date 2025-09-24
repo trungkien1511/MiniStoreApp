@@ -8,24 +8,102 @@
               HorizontalScrollBarVisibility="Disabled">
         <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <!-- Header -->
                 <RowDefinition Height="*"/>
                 <!-- Content -->
             </Grid.RowDefinitions>
-            
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10" Grid.Row="0">
-                <Button Content="⬅ Quay lại" Width="100" Margin="5" Click="Back_Click"/>
-                <Button Content="➡ Tiếp theo" Width="100" Margin="5" Click="Forward_Click"/>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0 " Grid.Row="0" Background="Red" >
+                <!-- Button Template dùng chung -->
+                    <Button Width="20" Height="20" Click="Back_Click" Cursor="Hand" Tag="&#xE72B;"
+            Background="Transparent" BorderBrush="White" BorderThickness="1" Margin="0 0 5 0">
+                        <Button.Content>
+                            <TextBlock Text="{Binding Tag, RelativeSource={RelativeSource AncestorType=Button}}"
+                       FontFamily="Segoe MDL2 Assets" FontSize="10"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                       Foreground="White"/>
+                        </Button.Content>
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="{TemplateBinding Background}" 
+                                    BorderBrush="{TemplateBinding BorderBrush}" 
+                                    BorderThickness="{TemplateBinding BorderThickness}" 
+                                    CornerRadius="50">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect Color="Gray" BlurRadius="5" ShadowDepth="2"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#FF2563EB"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+
+                    <!-- Forward Button chỉ cần thay Tag và Click -->
+                <Button Width="20" Height="20" Click="Forward_Click" Cursor="Hand" Tag="&#xE72A;"
+            Background="Transparent" BorderBrush="White" BorderThickness="1">
+                    <Button.Content>
+                        <TextBlock Text="{Binding Tag, RelativeSource={RelativeSource AncestorType=Button}}"
+                       FontFamily="Segoe MDL2 Assets" FontSize="10"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                       Foreground="White"/>
+                    </Button.Content>
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="{TemplateBinding Background}" 
+                                    BorderBrush="{TemplateBinding BorderBrush}" 
+                                    BorderThickness="{TemplateBinding BorderThickness}" 
+                                    CornerRadius="50">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect Color="Gray" BlurRadius="5" ShadowDepth="2"/>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#FF059669"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
             </StackPanel>
-            
+
+            <Border Height="2" Background="Black" Grid.Row="1">
+                <Border.Effect>
+                    <DropShadowEffect Color="Black" BlurRadius="2" ShadowDepth="1" Opacity="0.3"/>
+                </Border.Effect>
+            </Border>
+
             <!-- HeaderBar -->
-            <user:HeaderBar Grid.Row="1"/>
+            <user:HeaderBar Grid.Row="2"/>
                 
             <!-- Content hiển thị Page -->
             <Frame x:Name="MainFrame"
-                   Grid.Row="2"
+                   Grid.Row="3"
                    NavigationUIVisibility="Hidden"
                    Margin="200 10"/>
         </Grid>

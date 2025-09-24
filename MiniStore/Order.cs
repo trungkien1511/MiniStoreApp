@@ -12,29 +12,24 @@ namespace MiniStore
     using System;
     using System.Collections.Generic;
     
-    public partial class Product
+    public partial class Order
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Product()
+        public Order()
         {
-            this.CartDetails = new HashSet<CartDetail>();
             this.OrderDetails1 = new HashSet<OrderDetail>();
         }
     
-        public int ProductID { get; set; }
-        public string Name { get; set; }
-        public Nullable<int> CategoryID { get; set; }
-        public decimal Price { get; set; }
-        public int StockQuantity { get; set; }
-        public Nullable<int> SupplierID { get; set; }
-        public System.DateTime CreatedAt { get; set; }
-        public System.DateTime UpdatedAt { get; set; }
-        public string ImageUrl { get; set; }
+        public int OrderID { get; set; }
+        public int UserID { get; set; }
+        public System.DateTime OrderDate { get; set; }
+        public decimal TotalAmount { get; set; }
+        public string Status { get; set; }
+        public string PaymentMethod { get; set; }
+        public string Address { get; set; }
+        public string Note { get; set; }
+        public string PhoneNumber { get; set; }
     
-        public virtual Category Category { get; set; }
-        public virtual Supplier Supplier { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CartDetail> CartDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetail> OrderDetails1 { get; set; }
     }

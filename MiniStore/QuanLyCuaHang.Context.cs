@@ -31,5 +31,7 @@ namespace MiniStore
         public virtual DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<Cart> Carts { get; set; }
         public virtual DbSet<CartDetail> CartDetails { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<OrderDetail> OrderDetails { get; set; }
     }
 }

@@ -1,0 +1,12 @@
+﻿<Page x:Class="MiniStore.Views.User.OrderSuccess"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Đặt hàng thành công"
+      Background="White">
+
+    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+        <TextBlock Text="Đặt hàng thành công!" FontSize="26" FontWeight="Bold" TextAlignment="Center"/>
+        <TextBlock x:Name="txtOrderInfo" Text="" FontSize="16" TextAlignment="Center"/>
+        <Button Style="{StaticResource RedButton}" Content="Quay về trang chủ" Width="200" Height="40" Click="BtnBackHome_Click"/>
+    </StackPanel>
+</Page>
