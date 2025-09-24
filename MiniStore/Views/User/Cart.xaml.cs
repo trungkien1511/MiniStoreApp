@@ -104,6 +104,7 @@ namespace MiniStore.Views.User
                     UpdateSummary();
                 }
             }
+            UpdateEmptyCartMessage();
         }
 
         private void Btn_Delete(object sender, RoutedEventArgs e)
@@ -130,6 +131,7 @@ namespace MiniStore.Views.User
                     UpdateSummary();
                 }
             }
+            UpdateEmptyCartMessage();
         }
 
 
