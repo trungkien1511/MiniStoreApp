@@ -1,0 +1,174 @@
+﻿<UserControl x:Class="MiniStore.Views.Admin.AddUserView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MiniStore.Views.Admin"
+             mc:Ignorable="d" 
+             d:DesignHeight="520" d:DesignWidth="800"
+             Background="#F5F7FA">
+
+    <UserControl.Resources>
+        <!-- Colors and Styles are reused for consistency -->
+        <SolidColorBrush x:Key="PrimaryBlueBrush" Color="#3C82F6"/>
+        <SolidColorBrush x:Key="PrimaryTextBrush" Color="#1E293B"/>
+        <SolidColorBrush x:Key="SecondaryTextBrush" Color="#64748B"/>
+        <SolidColorBrush x:Key="BorderBrush" Color="#E2E8F0"/>
+
+        <Style TargetType="Button" x:Key="PrimaryActionButtonStyle">
+            <Setter Property="Background" Value="{StaticResource PrimaryBlueBrush}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Padding" Value="20,10"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="6">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="Button" x:Key="SecondaryButtonStyle">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="{StaticResource SecondaryTextBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="20,10"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="6">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="TextBox" x:Key="FormInputTextBoxStyle">
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="8"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="White" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="6">
+                            <ScrollViewer x:Name="PART_ContentHost"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="PasswordBox" x:Key="FormInputPasswordBoxStyle">
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="8"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="PasswordBox">
+                        <Border Background="White" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="6">
+                            <ScrollViewer x:Name="PART_ContentHost"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="ComboBox" x:Key="FormComboBoxStyle">
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="8"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Thông tin Người dùng" FontSize="20" FontWeight="Bold" Foreground="{StaticResource PrimaryTextBrush}" Margin="0,0,0,20"/>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Left Column -->
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="Họ và tên" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                    <TextBox Style="{StaticResource FormInputTextBoxStyle}" Text="{Binding FullName}"/>
+
+                    <TextBlock Text="Địa chỉ Email" FontWeight="SemiBold" Margin="0,15,0,5"/>
+                    <TextBox Style="{StaticResource FormInputTextBoxStyle}" Text="{Binding Email}"/>
+
+                    <TextBlock Text="Mật khẩu" FontWeight="SemiBold" Margin="0,15,0,5"/>
+                    <PasswordBox Style="{StaticResource FormInputPasswordBoxStyle}"/>
+
+                    <Grid Margin="0,15,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="Chức vụ" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                            <TextBox Style="{StaticResource FormInputTextBoxStyle}" Text="{Binding Position}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="2">
+                            <TextBlock Text="Phòng ban" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                            <TextBox Style="{StaticResource FormInputTextBoxStyle}" Text="{Binding Department}"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid Margin="0,15,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="Quốc gia" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                            <ComboBox Style="{StaticResource FormComboBoxStyle}" ItemsSource="{Binding Countries}" SelectedItem="{Binding SelectedCountry}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="2">
+                            <TextBlock Text="Vai trò" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                            <ComboBox Style="{StaticResource FormComboBoxStyle}" ItemsSource="{Binding Roles}" SelectedItem="{Binding SelectedRole}"/>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+
+                <!-- Right Column -->
+                <StackPanel Grid.Column="2" HorizontalAlignment="Center">
+                    <TextBlock Text="Ảnh đại diện" FontWeight="SemiBold" Margin="0,0,0,5" HorizontalAlignment="Center"/>
+                    <Ellipse Width="120" Height="120" Stroke="{StaticResource BorderBrush}" StrokeThickness="1">
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="{Binding AvatarPath}" Stretch="UniformToFill"/>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    <Button Content="Chọn ảnh..." Command="{Binding BrowseAvatarCommand}" Style="{StaticResource SecondaryButtonStyle}" Padding="10,8" Margin="0,10,0,0"/>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+
+        <!-- Action Buttons -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
+            <Button Content="Hủy" Command="{Binding CancelCommand}" Style="{StaticResource SecondaryButtonStyle}" Margin="0,0,10,0"/>
+            <Button Content="Lưu người dùng" Command="{Binding SaveUserCommand}" Style="{StaticResource PrimaryActionButtonStyle}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>
