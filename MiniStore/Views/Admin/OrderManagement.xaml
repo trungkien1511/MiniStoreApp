@@ -163,9 +163,16 @@
 
             <!-- 5. DATA GRID -->
             <Border Grid.Row="4" Background="White" CornerRadius="8" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1">
-                <DataGrid ItemsSource="{Binding Orders}" CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="True"
-                          HeadersVisibility="Column" GridLinesVisibility="None" RowHeight="60"
-                          VerticalContentAlignment="Center" Foreground="{StaticResource PrimaryTextBrush}">
+                <DataGrid ItemsSource="{Binding Orders}"
+                      SelectedItem="{Binding SelectedOrder, Mode=TwoWay}"
+                      CanUserAddRows="False"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="True"
+                      HeadersVisibility="Column"
+                      GridLinesVisibility="None"
+                      RowHeight="60"
+                      VerticalContentAlignment="Center"
+                      Foreground="{StaticResource PrimaryTextBrush}">
 
                     <DataGrid.Resources>
                         <Style TargetType="DataGridColumnHeader">
@@ -195,22 +202,29 @@
                     </DataGrid.Resources>
 
                     <DataGrid.Columns>
-                        <DataGridTemplateColumn Header="ĐƠN HÀNG" Width="1.5*">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <StackPanel VerticalAlignment="Center">
-                                        <TextBlock Text="{Binding Id}" FontWeight="SemiBold" Foreground="{StaticResource PrimaryTextBrush}"/>
-                                        <TextBlock Text="{Binding OrderDate, StringFormat='dd/MM/yyyy HH:mm'}" Foreground="{StaticResource SecondaryTextBrush}" FontSize="12"/>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
+                        <!-- Order ID -->
+                        <DataGridTextColumn Header="Order ID" Binding="{Binding OrderID}" Width="1*"/>
 
-                        <DataGridTextColumn Header="KHÁCH HÀNG" Binding="{Binding CustomerName}" Width="2*"/>
+                        <!-- Name of Orderer -->
+                        <DataGridTextColumn Header="Tên khách hàng" Binding="{Binding NameOfOrderer}" Width="2*"/>
 
-                        <DataGridTextColumn Header="TỔNG TIỀN" Binding="{Binding TotalAmount, StringFormat='{}{0:N0} đ'}" Width="1.5*"/>
+                        <!-- Phone Number -->
+                        <DataGridTextColumn Header="Số điện thoại" Binding="{Binding PhoneNumber}" Width="1.5*"/>
 
-                        <DataGridTemplateColumn Header="TRẠNG THÁI" Width="1.2*">
+                        <!-- Address -->
+                        <DataGridTextColumn Header="Địa chỉ" Binding="{Binding Address}" Width="2*"/>
+
+                        <!-- Total Amount -->
+                        <DataGridTextColumn Header="Tổng tiền" Binding="{Binding TotalAmount, StringFormat='{}{0:N0} đ'}" Width="1.5*"/>
+
+                        <!-- Order Date -->
+                        <DataGridTextColumn Header="Ngày đặt hàng" Binding="{Binding OrderDate, StringFormat='dd/MM/yyyy HH:mm'}" Width="1.5*"/>
+
+                        <!-- User ID -->
+                        <DataGridTextColumn Header="User ID" Binding="{Binding UserID}" Width="1*"/>
+
+                        <!-- Status -->
+                        <DataGridTemplateColumn Header="Trạng thái" Width="1.2*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
@@ -218,35 +232,17 @@
                                         <TextBlock Text="{Binding Status}" VerticalAlignment="Center"/>
                                     </StackPanel>
                                     <DataTemplate.Triggers>
-                                        <DataTrigger Binding="{Binding Status}" Value="Hoàn thành">
+                                        <DataTrigger Binding="{Binding Status}" Value="Complete">
                                             <Setter TargetName="StatusDot" Property="Fill" Value="{StaticResource StatusCompletedBrush}"/>
                                         </DataTrigger>
-                                        <DataTrigger Binding="{Binding Status}" Value="Đang xử lý">
-                                            <Setter TargetName="StatusDot" Property="Fill" Value="{StaticResource StatusProcessingBrush}"/>
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding Status}" Value="Đã hủy">
-                                            <Setter TargetName="StatusDot" Property="Fill" Value="{StaticResource StatusCancelledBrush}"/>
-                                        </DataTrigger>
+                             
                                     </DataTemplate.Triggers>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn Header="HÀNH ĐỘNG" Width="1.2*">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                                        <Button ToolTip="Xem chi tiết" Tag="&#xE773;" Style="{StaticResource DataGridActionButtonStyle}"
-                                                Command="{Binding DataContext.ViewOrderDetailsCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                                CommandParameter="{Binding}"/>
-                                        <Button ToolTip="Cập nhật trạng thái" Tag="&#xE70F;" Style="{StaticResource DataGridActionButtonStyle}"
-                                                Command="{Binding DataContext.UpdateStatusCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                                CommandParameter="{Binding}"/>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
                     </DataGrid.Columns>
+
                 </DataGrid>
             </Border>
 
@@ -258,7 +254,7 @@
             </StackPanel>
         </Grid>
 
-        <!-- LOADING OVERLAY -->
+        <!-- 
         <Border Background="#A0FFFFFF"
                 Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}}">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -266,5 +262,6 @@
                            FontSize="14" Foreground="{StaticResource PrimaryBlueBrush}"/>
             </StackPanel>
         </Border>
+        -->
     </Grid>
 </UserControl>

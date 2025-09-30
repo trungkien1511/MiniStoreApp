@@ -1,0 +1,189 @@
+﻿<Page x:Class="MiniStore.Views.User.CartView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             >
+    <Grid Background="White" Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Cột bên trái: Danh sách sản phẩm trong giỏ hàng -->
+        <ListView ItemsSource="{Binding Items}" Margin="10" Background="White" BorderThickness="0">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="Padding" Value="0"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListViewItem">
+                                <Border x:Name="ItemBorder" BorderThickness="1" BorderBrush="LightGray" CornerRadius="8" Margin="0,5" Background="White">
+                                    <ContentPresenter/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <!-- Hover Trigger -->
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Trigger.EnterActions>
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <ColorAnimation Storyboard.TargetName="ItemBorder"
+                                                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                                    To="#FFF5F5F5" Duration="0:0:0.2"/>
+                                                    <ColorAnimation Storyboard.TargetName="ItemBorder"
+                                                                    Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)"
+                                                                    To="Red" Duration="0:0:0.2"/>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </Trigger.EnterActions>
+                                        <Trigger.ExitActions>
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <ColorAnimation Storyboard.TargetName="ItemBorder"
+                                                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                                    To="White" Duration="0:0:0.2"/>
+                                                    <ColorAnimation Storyboard.TargetName="ItemBorder"
+                                                                    Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)"
+                                                                    To="LightGray" Duration="0:0:0.2"/>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </Trigger.ExitActions>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListView.ItemContainerStyle>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Height="80" VerticalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Hình ảnh -->
+                        <Image Source="{Binding ImagePath}" Width="50" Height="50" Stretch="UniformToFill" VerticalAlignment="Center" Grid.Column="0"/>
+
+                        <!-- Tên sản phẩm -->
+                        <TextBlock Text="{Binding ProductName}" FontSize="16" VerticalAlignment="Center" Margin="10,0" Grid.Column="1"/>
+
+                        <!-- Giá -->
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center" Grid.Column="2" Margin="10,0">
+                            <TextBlock Text="{Binding UnitPrice, StringFormat={}{0:N0} đ}" FontSize="16" Foreground="DarkGreen"/>
+                        </StackPanel>
+
+                        <!-- Nút tăng/giảm số lượng -->
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Column="3" Margin="10,0">
+                            <Button Content="−"
+                                    Width="30" Height="30"
+                                    Background="White" BorderBrush="Red" Foreground="Red"
+                                    Command="{Binding DataContext.DecreaseCommand, RelativeSource={RelativeSource AncestorType=ListView}}"
+                                    CommandParameter="{Binding CartDetailID}"/>
+
+                            <TextBlock Text="{Binding Quantity}" FontSize="16" Width="30" TextAlignment="Center" VerticalAlignment="Center"/>
+
+                            <Button Content="+"
+                                    Width="30" Height="30"
+                                    Background="White" BorderBrush="Red" Foreground="Red"
+                                    Command="{Binding DataContext.IncreaseCommand, RelativeSource={RelativeSource AncestorType=ListView}}"
+                                    CommandParameter="{Binding CartDetailID}"/>
+                        </StackPanel>
+
+                        <!-- Xóa sản phẩm -->
+                        <Button Content="x"
+                                Width="30" Height="30"
+                                Margin="10,0"
+                                VerticalAlignment="Center"
+                                Background="White" BorderBrush="Red" Foreground="Red"
+                                Grid.Column="4"
+                                Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=ListView}}"
+                                CommandParameter="{Binding CartDetailID}"/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+
+        <!-- Thông báo giỏ hàng trống -->
+        <TextBlock Visibility="{Binding EmptyCartVisibility}"
+               Text="Không có sản phẩm trong giỏ hàng"
+               FontSize="18"
+               FontWeight="Bold"
+               Foreground="Gray"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               Grid.ColumnSpan="2"/>
+
+        <!-- Cột bên phải: Thông tin giỏ hàng -->
+        <Grid Grid.Column="1" Margin="10,20,20,10" Visibility="{Binding RightPanelVisibility}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Tóm tắt đơn hàng -->
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Tạm tính giỏ hàng:" FontSize="16" Grid.Row="0" Grid.Column="0" Margin="0,0,0,5"/>
+                <TextBlock Text="{Binding Subtotal, StringFormat={}{0:N0} đ}" 
+                   FontSize="16" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" Margin="10,0,0,5"/>
+
+                <TextBlock Text="Tạm tính sản phẩm KM:" FontSize="16" Grid.Row="1" Grid.Column="0" Margin="0,0,0,5"/>
+                <TextBlock Text="{Binding PromoSubtotal, StringFormat={}{0:N0} đ}" 
+                   FontSize="16" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Margin="10,0,0,5"/>
+
+                <TextBlock Text="Tiết kiệm được:" FontSize="16" Grid.Row="2" Grid.Column="0" Margin="0,0,0,5"/>
+                <TextBlock Text="{Binding Saved, StringFormat={}{0:N0} đ}" 
+                   FontSize="16" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" Margin="10,0,0,5"/>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="0" Margin="0,0,0,5">
+                    <TextBlock Text="Phí vận chuyển" FontSize="16"/>
+                    <TextBlock Text=" ?" Foreground="Gray" FontWeight="Bold" Margin="5,0,0,0" FontSize="16"/>
+                </StackPanel>
+                <TextBlock Text="{Binding Shipping, StringFormat={}{0:N0} đ}" 
+                   FontSize="16" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" Margin="10,0,0,5"/>
+
+                <TextBlock Text="Khuyến mại" FontSize="16" Grid.Row="4" Grid.Column="0" Margin="0,0,0,5"/>
+                <TextBlock Text="{Binding Discount, StringFormat={}{0:N0} đ}" 
+                   FontSize="16" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" Margin="10,0,0,5"/>
+
+                <TextBlock Text="Thành tiền:" FontSize="16" FontWeight="Bold" Grid.Row="5" Grid.Column="0" Margin="0,0,0,5"/>
+                <TextBlock Text="{Binding Total, StringFormat={}{0:N0} đ}" 
+                   FontSize="16" FontWeight="Bold" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" Margin="10,0,0,5"/>
+
+                <TextBlock Text="(Giá đã bao gồm VAT)" FontSize="14"
+                   Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2"
+                   FontStyle="Italic" Foreground="Gray" Margin="0,0,0,5"/>
+            </Grid>
+
+            <!-- Nút thanh toán -->
+            <Button Grid.Row="2" Height="60" Margin="0,10,0,10"
+            Style="{StaticResource RedButton}"
+            FontSize="16"
+            Content="{Binding CheckoutButtonText}"
+            Command="{Binding CheckoutCommand}"/>
+        </Grid>
+    </Grid>
+</Page>

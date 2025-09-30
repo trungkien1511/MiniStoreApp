@@ -10,5 +10,7 @@ namespace MiniStore.Helpers
     {
         public static int UserID { get; set; }
         public static string UserName { get; set; }
+
+        
     }
 }

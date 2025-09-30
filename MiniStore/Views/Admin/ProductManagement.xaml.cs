@@ -1,28 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using MiniStore.ViewModels.Admin;
+using System.Collections.ObjectModel;
+using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace MiniStore.Views.Admin
 {
-    /// <summary>
-    /// Interaction logic for ProductManagement.xaml
-    /// </summary>
     public partial class ProductManagement : UserControl
     {
+        // ObservableCollection để binding DataGrid
+        public ObservableCollection<Product> Products { get; set; }
+
         public ProductManagement()
         {
             InitializeComponent();
+            this.DataContext = new ProductManagementViewModel(); ; // Binding trực tiếp vào UserControl
+
         }
+
+        private void AddProductButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Lấy Window cha là AdminLayout
+            var adminLayout = Window.GetWindow(this) as AdminLayout;
+            if (adminLayout != null)
+            {
+                // Hiển thị AddProductView trong MainContent
+                adminLayout.MainContent.Content = new AddProductView();
+            }
+        }
+
     }
 }

@@ -101,33 +101,47 @@
 
                 <!-- Left Column -->
                 <StackPanel Grid.Column="0">
+                    <!-- Tên sản phẩm -->
                     <TextBlock Text="Tên sản phẩm" FontWeight="SemiBold" Margin="0,0,0,5"/>
-                    <TextBox Style="{StaticResource FormInputTextBoxStyle}" Text="{Binding ProductName}"/>
+                    <TextBox Text="{Binding ProductName, UpdateSourceTrigger=PropertyChanged}" 
+                 Style="{StaticResource FormInputTextBoxStyle}"/>
 
-                    <TextBlock Text="Mã SKU" FontWeight="SemiBold" Margin="0,15,0,5"/>
-                    <TextBox Style="{StaticResource FormInputTextBoxStyle}" Text="{Binding Sku}"/>
-
+                    <!-- Danh mục -->
                     <TextBlock Text="Danh mục" FontWeight="SemiBold" Margin="0,15,0,5"/>
-                    <ComboBox Style="{StaticResource FormComboBoxStyle}" ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}"/>
+                    <ComboBox ItemsSource="{Binding Categories}" 
+                  SelectedValue="{Binding SelectedCategoryId, Mode=TwoWay}" 
+                  DisplayMemberPath="Name" 
+                  SelectedValuePath="CategoryID"
+                  Style="{StaticResource FormComboBoxStyle}"/>
 
+                    <!-- Giá và Số lượng -->
                     <Grid Margin="0,15,0,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="10"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
+
                         <StackPanel Grid.Column="0">
                             <TextBlock Text="Giá bán (đ)" FontWeight="SemiBold" Margin="0,0,0,5"/>
-                            <TextBox Style="{StaticResource FormInputTextBoxStyle}" Text="{Binding Price}"/>
+                            <TextBox Text="{Binding Price, UpdateSourceTrigger=PropertyChanged}" 
+                         Style="{StaticResource FormInputTextBoxStyle}"/>
                         </StackPanel>
+
                         <StackPanel Grid.Column="2">
                             <TextBlock Text="Số lượng tồn kho" FontWeight="SemiBold" Margin="0,0,0,5"/>
-                            <TextBox Style="{StaticResource FormInputTextBoxStyle}" Text="{Binding Stock}"/>
+                            <TextBox Text="{Binding StockQuantity, UpdateSourceTrigger=PropertyChanged}" 
+                         Style="{StaticResource FormInputTextBoxStyle}"/>
                         </StackPanel>
                     </Grid>
 
-                    <TextBlock Text="Mô tả" FontWeight="SemiBold" Margin="0,15,0,5"/>
-                    <TextBox Style="{StaticResource FormInputTextBoxStyle}" Text="{Binding Description}" TextWrapping="Wrap" AcceptsReturn="True" Height="80"/>
+                    <!-- Nhà cung cấp -->
+                    <TextBlock Text="Nhà cung cấp" FontWeight="SemiBold" Margin="0,15,0,5"/>
+                    <ComboBox ItemsSource="{Binding Suppliers}" 
+                      SelectedValue="{Binding SelectedSupplierId, Mode=TwoWay}" 
+                      DisplayMemberPath="Name" 
+                      SelectedValuePath="SupplierID"
+                      Style="{StaticResource FormComboBoxStyle}"/>
                 </StackPanel>
 
                 <!-- Right Column -->
@@ -136,7 +150,9 @@
                     <Border BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" CornerRadius="6" Background="White" Height="200">
                         <Image Source="{Binding ImagePath}" Stretch="Uniform"/>
                     </Border>
-                    <Button Content="Chọn ảnh..." Command="{Binding BrowseImageCommand}" Style="{StaticResource SecondaryButtonStyle}" Padding="10,8" Margin="0,10,0,0"/>
+                    <Button Content="Chọn ảnh..." 
+                Command="{Binding BrowseImageCommand}" 
+                Style="{StaticResource SecondaryButtonStyle}" Padding="10,8" Margin="0,10,0,0"/>
                 </StackPanel>
             </Grid>
         </ScrollViewer>

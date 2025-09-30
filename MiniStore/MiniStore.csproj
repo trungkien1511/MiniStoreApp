@@ -90,9 +90,10 @@
     <Compile Include="Category.cs">
       <DependentUpon>QuanLyCuaHang.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\DatabaseHelper.cs" />
+    <Compile Include="Helpers\CartHelper.cs" />
     <Compile Include="Helpers\CurrentUser.cs" />
-    <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\RecentOrder.cs" />
+    <Compile Include="Models\TopSellingProduct.cs" />
     <Compile Include="Order.cs">
       <DependentUpon>QuanLyCuaHang.tt</DependentUpon>
     </Compile>
@@ -117,40 +118,76 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>QuanLyCuaHang.edmx</DependentUpon>
     </Compile>
+    <Compile Include="RelayCommand.cs" />
+    <Compile Include="Role.cs">
+      <DependentUpon>QuanLyCuaHang.tt</DependentUpon>
+    </Compile>
     <Compile Include="Supplier.cs">
       <DependentUpon>QuanLyCuaHang.tt</DependentUpon>
     </Compile>
     <Compile Include="User.cs">
       <DependentUpon>QuanLyCuaHang.tt</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\User\CartItemViewModel.cs" />
-    <Compile Include="ViewModels\User\HomeViewModel.cs" />
-    <Compile Include="ViewModels\User\LoginViewModel.cs" />
-    <Compile Include="Views\User\Cart.xaml.cs">
-      <DependentUpon>Cart.xaml</DependentUpon>
+    <Compile Include="ViewModels\Admin\AddProductViewModel.cs" />
+    <Compile Include="ViewModels\Admin\AddUserViewModel.cs" />
+    <Compile Include="ViewModels\Admin\AdminLayoutViewModel.cs" />
+    <Compile Include="ViewModels\Admin\DashboardViewModel.cs" />
+    <Compile Include="ViewModels\Admin\OrderManagementViewModel.cs" />
+    <Compile Include="ViewModels\Admin\ProductManagementViewModel.cs" />
+    <Compile Include="ViewModels\Admin\UserManagementViewModel.cs" />
+    <Compile Include="ViewModels\Users\CartItemViewModel.cs" />
+    <Compile Include="ViewModels\Users\CartViewModel.cs" />
+    <Compile Include="ViewModels\Users\HeaderBarViewModel.cs" />
+    <Compile Include="ViewModels\Users\HomeViewModel.cs" />
+    <Compile Include="ViewModels\Users\LoginViewModel.cs" />
+    <Compile Include="ViewModels\Users\OrderViewModel.cs" />
+    <Compile Include="ViewModels\Users\ProductDetailViewModel.cs" />
+    <Compile Include="Views\Admin\AddProductView.xaml.cs">
+      <DependentUpon>AddProductView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\User\HeaderBar.xaml.cs">
+    <Compile Include="Views\Admin\AddUserView.xaml.cs">
+      <DependentUpon>AddUserView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\AdminLayout.xaml.cs">
+      <DependentUpon>AdminLayout.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\Dashboard.xaml.cs">
+      <DependentUpon>Dashboard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\OrderManagement.xaml.cs">
+      <DependentUpon>OrderManagement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\ProductManagement.xaml.cs">
+      <DependentUpon>ProductManagement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\UserManagement.xaml.cs">
+      <DependentUpon>UserManagement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Users\CartView.xaml.cs">
+      <DependentUpon>CartView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Users\HeaderBar.xaml.cs">
       <DependentUpon>HeaderBar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\User\MainLayout.xaml.cs">
+    <Compile Include="Views\Users\MainLayout.xaml.cs">
       <DependentUpon>MainLayout.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\User\Home.xaml.cs">
-      <DependentUpon>Home.xaml</DependentUpon>
+    <Compile Include="Views\Users\HomeView.xaml.cs">
+      <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\User\LoginView.xaml.cs">
+    <Compile Include="Views\Users\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\User\OrderSuccess.xaml.cs">
+    <Compile Include="Views\Users\OrderSuccess.xaml.cs">
       <DependentUpon>OrderSuccess.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\User\OrderView.xaml.cs">
+    <Compile Include="Views\Users\OrderView.xaml.cs">
       <DependentUpon>OrderView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\User\ProductDetail.xaml.cs">
-      <DependentUpon>ProductDetail.xaml</DependentUpon>
+    <Compile Include="Views\Users\ProductDetailView.xaml.cs">
+      <DependentUpon>ProductDetailView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\User\Test.xaml.cs">
+    <Compile Include="Views\Users\Test.xaml.cs">
       <DependentUpon>Test.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
@@ -165,45 +202,72 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\User\Cart.xaml">
+    <Page Include="Views\Admin\AddProductView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\AddUserView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\AdminLayout.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\Dashboard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\OrderManagement.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\ProductManagement.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\UserManagement.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Users\CartView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\User\HeaderBar.xaml">
+    <Page Include="Views\Users\HeaderBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\User\MainLayout.xaml">
+    <Page Include="Views\Users\MainLayout.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\User\Home.xaml">
+    <Page Include="Views\Users\HomeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\User\LoginView.xaml">
+    <Page Include="Views\Users\LoginView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\User\OrderSuccess.xaml">
+    <Page Include="Views\Users\OrderSuccess.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\User\OrderView.xaml">
+    <Page Include="Views\Users\OrderView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\User\ProductDetail.xaml">
+    <Page Include="Views\Users\ProductDetailView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\User\Test.xaml">
+    <Page Include="Views\Users\Test.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\SanPham.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -243,7 +307,8 @@
     <Resource Include="Image\coca.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ViewModels\Admin\" />
+    <Folder Include="Data\" />
+    <Folder Include="Service\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="MiniStore.mdf">

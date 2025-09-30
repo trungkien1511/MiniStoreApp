@@ -110,65 +110,59 @@
 
                 <!-- Left Column -->
                 <StackPanel Grid.Column="0">
+
+                    <!-- Full name -->
                     <TextBlock Text="Họ và tên" FontWeight="SemiBold" Margin="0,0,0,5"/>
-                    <TextBox Style="{StaticResource FormInputTextBoxStyle}" Text="{Binding FullName}"/>
+                    <TextBox x:Name="FullNameTextBox" Style="{StaticResource FormInputTextBoxStyle}" 
+                     Text="{Binding FullName, UpdateSourceTrigger=PropertyChanged}"/>
 
-                    <TextBlock Text="Địa chỉ Email" FontWeight="SemiBold" Margin="0,15,0,5"/>
-                    <TextBox Style="{StaticResource FormInputTextBoxStyle}" Text="{Binding Email}"/>
+                    <!-- Username -->
+                    <TextBlock Text="Username" FontWeight="SemiBold" Margin="0,15,0,5"/>
+                    <TextBox x:Name="UsernameTextBox" Style="{StaticResource FormInputTextBoxStyle}" 
+                     Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"/>
 
+                    <!-- Password -->
                     <TextBlock Text="Mật khẩu" FontWeight="SemiBold" Margin="0,15,0,5"/>
-                    <PasswordBox Style="{StaticResource FormInputPasswordBoxStyle}"/>
+                    <PasswordBox x:Name="PasswordBox" 
+                                 Style="{StaticResource FormInputPasswordBoxStyle}"
+                                 PasswordChanged="PasswordBox_PasswordChanged"/>
 
-                    <Grid Margin="0,15,0,0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="10"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <StackPanel Grid.Column="0">
-                            <TextBlock Text="Chức vụ" FontWeight="SemiBold" Margin="0,0,0,5"/>
-                            <TextBox Style="{StaticResource FormInputTextBoxStyle}" Text="{Binding Position}"/>
-                        </StackPanel>
-                        <StackPanel Grid.Column="2">
-                            <TextBlock Text="Phòng ban" FontWeight="SemiBold" Margin="0,0,0,5"/>
-                            <TextBox Style="{StaticResource FormInputTextBoxStyle}" Text="{Binding Department}"/>
-                        </StackPanel>
-                    </Grid>
 
-                    <Grid Margin="0,15,0,0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="10"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <StackPanel Grid.Column="0">
-                            <TextBlock Text="Quốc gia" FontWeight="SemiBold" Margin="0,0,0,5"/>
-                            <ComboBox Style="{StaticResource FormComboBoxStyle}" ItemsSource="{Binding Countries}" SelectedItem="{Binding SelectedCountry}"/>
-                        </StackPanel>
-                        <StackPanel Grid.Column="2">
-                            <TextBlock Text="Vai trò" FontWeight="SemiBold" Margin="0,0,0,5"/>
-                            <ComboBox Style="{StaticResource FormComboBoxStyle}" ItemsSource="{Binding Roles}" SelectedItem="{Binding SelectedRole}"/>
-                        </StackPanel>
-                    </Grid>
+                    <!-- Phone Number -->
+                    <TextBlock Text="Số điện thoại" FontWeight="SemiBold" Margin="0,15,0,5"/>
+                    <TextBox Style="{StaticResource FormInputTextBoxStyle}" 
+                     Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <!-- Address -->
+                    <TextBlock Text="Địa chỉ" FontWeight="SemiBold" Margin="0,15,0,5"/>
+                    <TextBox Style="{StaticResource FormInputTextBoxStyle}" 
+                     Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <!-- Date of Birth -->
+                    <TextBlock Text="Ngày sinh" FontWeight="SemiBold" Margin="0,15,0,5"/>
+                    <DatePicker SelectedDate="{Binding DateOfBirth, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <!-- Role -->
+                    <TextBlock Text="Vai trò" FontWeight="SemiBold" Margin="0,15,0,5"/>
+                    <ComboBox x:Name="RoleComboBox" Style="{StaticResource FormComboBoxStyle}" 
+                      SelectedValue="{Binding SelectedRoleId}" SelectedValuePath="Tag">
+                        <ComboBoxItem Content="Admin" Tag="1"/>
+                        <ComboBoxItem Content="User" Tag="2"/>
+                    </ComboBox>
                 </StackPanel>
 
-                <!-- Right Column -->
+                <!-- Right Column (Bỏ ảnh) -->
                 <StackPanel Grid.Column="2" HorizontalAlignment="Center">
-                    <TextBlock Text="Ảnh đại diện" FontWeight="SemiBold" Margin="0,0,0,5" HorizontalAlignment="Center"/>
-                    <Ellipse Width="120" Height="120" Stroke="{StaticResource BorderBrush}" StrokeThickness="1">
-                        <Ellipse.Fill>
-                            <ImageBrush ImageSource="{Binding AvatarPath}" Stretch="UniformToFill"/>
-                        </Ellipse.Fill>
-                    </Ellipse>
-                    <Button Content="Chọn ảnh..." Command="{Binding BrowseAvatarCommand}" Style="{StaticResource SecondaryButtonStyle}" Padding="10,8" Margin="0,10,0,0"/>
+                    <!-- Giữ trống hoặc sau này thêm gì đó khác -->
                 </StackPanel>
             </Grid>
         </ScrollViewer>
 
-        <!-- Action Buttons -->
+
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
-            <Button Content="Hủy" Command="{Binding CancelCommand}" Style="{StaticResource SecondaryButtonStyle}" Margin="0,0,10,0"/>
-            <Button Content="Lưu người dùng" Command="{Binding SaveUserCommand}" Style="{StaticResource PrimaryActionButtonStyle}"/>
+            <Button Content="Hủy"  Style="{StaticResource SecondaryButtonStyle}" Margin="0,0,10,0"/>
+            <Button Content="Thêm người dùng" Command="{Binding SaveUserCommand}" Style="{StaticResource PrimaryActionButtonStyle}"/>
         </StackPanel>
+
     </Grid>
 </UserControl>

@@ -16,10 +16,13 @@
         <AssociationConnector Association="MiniStoreModel.FK_Cart_Users" />
         <AssociationConnector Association="MiniStoreModel.FK_CartDetails_Cart" />
         <AssociationConnector Association="MiniStoreModel.FK_CartDetails_Products" />
-        <EntityTypeShape EntityType="MiniStoreModel.Order" Width="1.5" PointX="8.625" PointY="5.25" />
+        <EntityTypeShape EntityType="MiniStoreModel.Order" Width="1.5" PointX="8.5" PointY="5.625" />
         <EntityTypeShape EntityType="MiniStoreModel.OrderDetail" Width="1.5" PointX="10.875" PointY="5.375" />
         <AssociationConnector Association="MiniStoreModel.FK_OrderDetails_Orders1" />
         <AssociationConnector Association="MiniStoreModel.FK_OrderDetails_Products1" />
+        <AssociationConnector Association="MiniStoreModel.FK_Order_Users" />
+        <EntityTypeShape EntityType="MiniStoreModel.Role" Width="1.5" PointX="0.75" PointY="5.75" />
+        <AssociationConnector Association="MiniStoreModel.FK_Users_Role" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

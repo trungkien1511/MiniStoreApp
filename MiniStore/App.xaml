@@ -1,47 +1,134 @@
 ﻿<Application x:Class="MiniStore.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             StartupUri="Views/User/LoginView.xaml">
+             StartupUri="Views/Users/LoginView.xaml">
     <Application.Resources>
-
         <!-- Style cơ bản cho tất cả Button -->
         <Style x:Key="BaseButton" TargetType="Button">
-            <!-- Thuộc tính chung -->
             <Setter Property="FontWeight" Value="SemiBold"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Padding" Value="10,6"/>
             <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="BtnBorder"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="5" 
+                            Padding="{TemplateBinding Padding}">
+                            
+                            <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"/>
+                            
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <!-- Hover khi nền trắng -->
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True"/>
+                                    <Condition Property="Background" Value="White"/>
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="BtnBorder" Property="Background" Value="Red"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter TargetName="BtnBorder" Property="BorderBrush" Value="Red"/>
+                            </MultiTrigger>
 
-            <!-- Template bo góc -->
+                            <!-- Hover khi nền đỏ -->
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True"/>
+                                    <Condition Property="Background" Value="#E53935"/>
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="BtnBorder" Property="Background" Value="White"/>
+                                <Setter Property="Foreground" Value="#E53935"/>
+                                <Setter TargetName="BtnBorder" Property="BorderBrush" Value="#E53935"/>
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="WhiteButton" TargetType="Button" BasedOn="{StaticResource BaseButton}">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="Red"/>
+            <Setter Property="BorderBrush" Value="Red"/>
+            <!-- Không đặt Width nữa -->
+            <Setter Property="Padding" Value="12,6"/>
+            <!-- padding để nút không quá nhỏ -->
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="BtnBorder"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="5"
+                        Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="BtnBorder" Property="Background" Value="Red"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter TargetName="BtnBorder" Property="BorderBrush" Value="Red"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="RedButton" TargetType="Button" BasedOn="{StaticResource BaseButton}">
+            <Setter Property="Background" Value="#E53935"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#E53935"/>
+            <!-- Không đặt Width nữa -->
+            <Setter Property="Padding" Value="12,6"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="BtnBorder"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="5"
+                        Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="BtnBorder" Property="Background" Value="White"/>
+                                <Setter Property="Foreground" Value="#E53935"/>
+                                <Setter TargetName="BtnBorder" Property="BorderBrush" Value="#E53935"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="NoHoverButton" TargetType="Button">
+            <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="5"
-                                Padding="{TemplateBinding Padding}">
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
                             <ContentPresenter HorizontalAlignment="Center"
-                                              VerticalAlignment="Center"/>
+                                      VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
 
-        <!-- Button nền trắng -->
-        <Style x:Key="WhiteButton" TargetType="Button" BasedOn="{StaticResource BaseButton}">
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="Foreground" Value="Red"/>
-            <Setter Property="BorderBrush" Value="Red"/>
-        </Style>
 
-        <!-- Button nền đỏ -->
-        <Style x:Key="RedButton" TargetType="Button" BasedOn="{StaticResource BaseButton}">
-            <Setter Property="Background" Value="#E53935"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="BorderBrush" Value="#E53935"/>
-        </Style>
 
     </Application.Resources>
 </Application>

@@ -9,6 +9,7 @@
         WindowStartupLocation="CenterScreen"
         Background="{DynamicResource ContentBackgroundBrush}">
 
+
     <Window.Resources>
         <!-- ================= BẢNG MÀU ================= -->
         <!-- Màu chủ đạo -->
@@ -221,13 +222,15 @@
                         <StackPanel VerticalAlignment="Center">
                             <TextBlock Text="Key" FontWeight="SemiBold" FontSize="14" Foreground="{StaticResource PrimaryTextBrush}"/>
                             <TextBlock Text="Administrator" Foreground="{StaticResource SecondaryTextBrush}" FontSize="12"/>
-                        </StackPanel>
+                        </StackPanel>   
                     </StackPanel>
                 </Grid>
             </Border>
 
             <!-- CONTENT -->
-            <ContentControl Grid.Row="1" x:Name="MainContent" Margin="20" Background="{StaticResource ContentBackgroundBrush}"/>
+            <ScrollViewer Grid.Row="1" Margin="20" Background="{StaticResource ContentBackgroundBrush}">
+                <ContentControl x:Name="MainContent"/>
+            </ScrollViewer>
         </Grid>
     </Grid>
 </Window>

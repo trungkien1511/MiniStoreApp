@@ -41,161 +41,167 @@
 
     <!-- ================= GRID CHÍNH ================= -->
     <Grid Background="{StaticResource HeaderBackgroundBrush}">
-        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
 
-                <!-- 1. TIÊU ĐỀ -->
-                <StackPanel Grid.Row="0" Margin="10,0,10,10">
-                    <TextBlock Text="{Binding WelcomeMessage, FallbackValue='Welcome back, Admin!'}" 
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- 1. TIÊU ĐỀ -->
+            <StackPanel Grid.Row="0" Margin="10,0,10,10">
+                <TextBlock Text="{Binding WelcomeMessage, FallbackValue='Welcome back, Admin!'}" 
                                FontSize="24" FontWeight="Bold" 
                                Foreground="{StaticResource PrimaryRedBrush}"/>
-                    <TextBlock Text="Here's an overview of your store's performance." 
+                <TextBlock Text="Here's an overview of your store's performance." 
                                FontSize="14" 
                                Foreground="{StaticResource SecondaryTextBrush}" Margin="0,4,0,0"/>
-                </StackPanel>
+            </StackPanel>
 
-                <!-- 2. CÁC THẺ THỐNG KÊ -->
-                <Grid Grid.Row="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
+            <!-- 2. CÁC THẺ THỐNG KÊ -->
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-                    <!-- Doanh thu -->
-                    <Border Grid.Column="0" Style="{StaticResource DashboardCardStyle}">
-                        <Grid>
-                            <StackPanel>
-                                <TextBlock Text="DOANH THU" FontSize="12" FontWeight="Bold" 
-                                           Foreground="{StaticResource SecondaryTextBrush}"/>
-                                <TextBlock Text="{Binding TotalRevenue, FallbackValue='0 đ'}" 
-                                           FontSize="26" FontWeight="Bold" 
-                                           Foreground="{StaticResource PrimaryTextBrush}" Margin="0,8,0,0"/>
-                                <TextBlock Text="{Binding RevenueChange, FallbackValue='...'}" 
-                                           FontSize="12" Foreground="{StaticResource SuccessBrush}" Margin="0,4,0,0"/>
-                            </StackPanel>
-                            <TextBlock Text="&#xE8C0;" FontFamily="Segoe MDL2 Assets" FontSize="28" 
-                                       Foreground="{StaticResource PrimaryRedBrush}"
-                                       HorizontalAlignment="Right" VerticalAlignment="Top" Opacity="0.8"/>
-                        </Grid>
-                    </Border>
-
-                    <!-- Đơn hàng -->
-                    <Border Grid.Column="1" Style="{StaticResource DashboardCardStyle}">
-                        <Grid>
-                            <StackPanel>
-                                <TextBlock Text="ĐƠN HÀNG" FontSize="12" FontWeight="Bold" 
-                                           Foreground="{StaticResource SecondaryTextBrush}"/>
-                                <TextBlock Text="{Binding TotalOrders, FallbackValue='0'}" 
-                                           FontSize="26" FontWeight="Bold" 
-                                           Foreground="{StaticResource PrimaryTextBrush}" Margin="0,8,0,0"/>
-                                <TextBlock Text="{Binding NewOrdersToday, FallbackValue='...'}" 
-                                           FontSize="12" Foreground="{StaticResource InfoBrush}" Margin="0,4,0,0"/>
-                            </StackPanel>
-                            <TextBlock Text="&#xE8CC;" FontFamily="Segoe MDL2 Assets" FontSize="28" 
-                                       Foreground="{StaticResource PrimaryRedBrush}"
-                                       HorizontalAlignment="Right" VerticalAlignment="Top" Opacity="0.8"/>
-                        </Grid>
-                    </Border>
-
-                    <!-- Khách hàng mới -->
-                    <Border Grid.Column="2" Style="{StaticResource DashboardCardStyle}">
-                        <Grid>
-                            <StackPanel>
-                                <TextBlock Text="KHÁCH HÀNG MỚI" FontSize="12" FontWeight="Bold" 
-                                           Foreground="{StaticResource SecondaryTextBrush}"/>
-                                <TextBlock Text="{Binding NewCustomers, FallbackValue='0'}" 
-                                           FontSize="26" FontWeight="Bold" 
-                                           Foreground="{StaticResource PrimaryTextBrush}" Margin="0,8,0,0"/>
-                                <TextBlock Text="trong tháng này" FontSize="12" 
-                                           Foreground="{StaticResource SecondaryTextBrush}" Margin="0,4,0,0"/>
-                            </StackPanel>
-                            <TextBlock Text="&#xE716;" FontFamily="Segoe MDL2 Assets" FontSize="28" 
-                                       Foreground="{StaticResource PrimaryRedBrush}"
-                                       HorizontalAlignment="Right" VerticalAlignment="Top" Opacity="0.8"/>
-                        </Grid>
-                    </Border>
-                </Grid>
-
-                <!-- 3. BIỂU ĐỒ + THÔNG TIN PHỤ -->
-                <Grid Grid.Row="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*"/>
-                        <ColumnDefinition Width="1*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <!-- Biểu đồ -->
-                    <Border Grid.Column="0" Style="{StaticResource DashboardCardStyle}">
+                <Border Grid.Column="0" Style="{StaticResource DashboardCardStyle}">
+                    <Grid>
                         <StackPanel>
-                            <TextBlock Text="Phân tích Doanh thu" FontSize="16" FontWeight="Bold" 
+                            <TextBlock Text="DOANH THU" FontSize="12" FontWeight="Bold" 
+                               Foreground="{StaticResource SecondaryTextBrush}"/>
+                            <TextBlock Text="{Binding TotalRevenue}" 
+                               FontSize="26" FontWeight="Bold" 
+                               Foreground="{StaticResource PrimaryTextBrush}" Margin="0,8,0,0"/>
+                            <TextBlock Text="{Binding RevenueChange}" 
+                               FontSize="12" Foreground="{StaticResource SuccessBrush}" Margin="0,4,0,0"/>
+                        </StackPanel>
+                        <TextBlock Text="&#xE8C0;" FontFamily="Segoe MDL2 Assets" FontSize="28" 
+                           Foreground="{StaticResource PrimaryRedBrush}"
+                           HorizontalAlignment="Right" VerticalAlignment="Top" Opacity="0.8"/>
+                    </Grid>
+                </Border>
+
+                <!-- Đơn hàng -->
+                <Border Grid.Column="1" Style="{StaticResource DashboardCardStyle}">
+                    <Grid>
+                        <StackPanel Height="79" VerticalAlignment="Top">
+                            <TextBlock Text="ĐƠN HÀNG" FontSize="12" FontWeight="Bold" 
+                               Foreground="{StaticResource SecondaryTextBrush}"/>
+                            <TextBlock Text="{Binding TotalOrders}" 
+                               FontSize="26" FontWeight="Bold" 
+                               Foreground="{StaticResource PrimaryTextBrush}" Margin="0,8,0,0"/>
+                            
+                        </StackPanel>
+                        <TextBlock Text="&#xE8CC;" FontFamily="Segoe MDL2 Assets" FontSize="28" 
+                           Foreground="{StaticResource PrimaryRedBrush}"
+                           HorizontalAlignment="Right" VerticalAlignment="Top" Opacity="0.8"/>
+                    </Grid>
+                </Border>
+
+                <!-- Khách hàng mới -->
+                <Border Grid.Column="2" Style="{StaticResource DashboardCardStyle}">
+                    <Grid>
+                        <StackPanel>
+                            <TextBlock Text="KHÁCH HÀNG MỚI" FontSize="12" FontWeight="Bold" 
+                                           Foreground="{StaticResource SecondaryTextBrush}"/>
+                            <TextBlock Text="{Binding NewCustomers, FallbackValue='0'}" 
+                                           FontSize="26" FontWeight="Bold" 
+                                           Foreground="{StaticResource PrimaryTextBrush}" Margin="0,8,0,0"/>
+                            <TextBlock Text="trong tháng này" FontSize="12" 
+                                           Foreground="{StaticResource SecondaryTextBrush}" Margin="0,4,0,0"/>
+                        </StackPanel>
+                        <TextBlock Text="&#xE716;" FontFamily="Segoe MDL2 Assets" FontSize="28" 
+                                       Foreground="{StaticResource PrimaryRedBrush}"
+                                       HorizontalAlignment="Right" VerticalAlignment="Top" Opacity="0.8"/>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <!-- 3. BIỂU ĐỒ + THÔNG TIN PHỤ -->
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Biểu đồ -->
+                <Border Grid.Column="0" Style="{StaticResource DashboardCardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="Phân tích Doanh thu" FontSize="16" FontWeight="Bold" 
                                        Foreground="{StaticResource PrimaryTextBrush}"/>
-                            <TextBlock Text="6 tháng gần nhất" FontSize="12" 
+                        <TextBlock Text="6 tháng gần nhất" FontSize="12" 
                                        Foreground="{StaticResource SecondaryTextBrush}" Margin="0,0,0,15"/>
-                            <Grid x:Name="ChartHost" Height="250"/>
+                        <Grid x:Name="ChartHost" Height="250"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Thẻ phụ -->
+                <StackPanel Grid.Column="1">
+                    <!-- Sản phẩm bán chạy -->
+                    <Border Style="{StaticResource DashboardCardStyle}">
+                        <StackPanel>
+                            <TextBlock Text="Sản phẩm bán chạy" FontSize="16" FontWeight="Bold" 
+                   Foreground="{StaticResource PrimaryTextBrush}" Margin="0,0,0,10"/>
+                            <ItemsControl ItemsSource="{Binding TopSellingProducts}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Margin="0,5">
+                                            <TextBlock Text="{Binding Name}" Foreground="{StaticResource SecondaryTextBrush}"/>
+                                            <TextBlock Text="{Binding Amount}" Foreground="{StaticResource PrimaryTextBrush}" 
+                                   HorizontalAlignment="Right" FontWeight="SemiBold"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
                         </StackPanel>
                     </Border>
 
-                    <!-- Thẻ phụ -->
-                    <StackPanel Grid.Column="1">
-                        <!-- Sản phẩm bán chạy -->
-                        <Border Style="{StaticResource DashboardCardStyle}">
-                            <StackPanel>
-                                <TextBlock Text="Sản phẩm bán chạy" FontSize="16" FontWeight="Bold" 
-                                           Foreground="{StaticResource PrimaryTextBrush}" Margin="0,0,0,10"/>
-                                <ItemsControl ItemsSource="{Binding TopSellingProducts}">
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <Grid Margin="0,5">
-                                                <TextBlock Text="{Binding Name}" Foreground="{StaticResource SecondaryTextBrush}"/>
-                                                <TextBlock Text="{Binding Amount}" Foreground="{StaticResource PrimaryTextBrush}" 
-                                                           HorizontalAlignment="Right" FontWeight="SemiBold"/>
-                                            </Grid>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-                            </StackPanel>
-                        </Border>
 
-                        <!-- Đơn hàng gần đây -->
-                        <Border Style="{StaticResource DashboardCardStyle}">
-                            <StackPanel>
-                                <TextBlock Text="Đơn hàng gần đây" FontSize="16" FontWeight="Bold" 
+                    <!-- Đơn hàng gần đây -->
+                    <Border Style="{StaticResource DashboardCardStyle}">
+                        <StackPanel>
+                            <TextBlock Text="Đơn hàng gần đây" FontSize="16" FontWeight="Bold" 
                                            Foreground="{StaticResource PrimaryTextBrush}" Margin="0,0,0,10"/>
-                                <ItemsControl ItemsSource="{Binding RecentOrders}">
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <StackPanel Orientation="Horizontal" Margin="0,8">
-                                                <Ellipse Width="30" Height="30" Fill="{StaticResource PrimaryRedAccentBrush}"/>
-                                                <StackPanel Margin="10,0,0,0" VerticalAlignment="Center">
-                                                    <TextBlock Text="{Binding CustomerName}" 
-                                                               Foreground="{StaticResource PrimaryTextBrush}" FontWeight="SemiBold"/>
-                                                    <TextBlock Text="{Binding Details}" 
-                                                               Foreground="{StaticResource SecondaryTextBrush}" FontSize="11"/>
-                                                </StackPanel>
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-                            </StackPanel>
-                        </Border>
-                    </StackPanel>
-                </Grid>
+                            <ItemsControl ItemsSource="{Binding RecentOrders}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Margin="0,8">
+                                            <!-- Hàng 1: Order ID -->
+                                            <TextBlock Foreground="{StaticResource PrimaryTextBrush}" FontWeight="SemiBold">
+                                                <Run Text="Đơn hàng #"/>
+                                                <Run Text="{Binding OrderID}"/>
+                                                </TextBlock>
+
+                                                <!-- Hàng 2: Tổng tiền và trạng thái -->
+                                            <TextBlock>
+        <Run Text="{Binding TotalAmount, StringFormat={}{0:N0} đ}" 
+             Foreground="{StaticResource SecondaryTextBrush}" FontSize="11"/>
+        <Run Text=" • " Foreground="{StaticResource SecondaryTextBrush}" FontSize="11"/>
+        <Run Text="{Binding Status}" Foreground="{StaticResource SecondaryTextBrush}" FontSize="11"/>
+                                            </TextBlock>
+                                        </StackPanel>
+
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
             </Grid>
-        </ScrollViewer>
-
-        <!-- ================= LỚP PHỦ LOADING ================= -->
+        </Grid>
+        
+        <!--  
         <Border Background="#99FFFFFF" 
                 Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}}">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <ProgressBar IsIndeterminate="True" Width="100" Foreground="{StaticResource PrimaryRedBrush}"/>
                 <TextBlock Text="Đang tải dữ liệu, vui lòng chờ..." Margin="0,10,0,0" 
                            FontSize="14" Foreground="{StaticResource SecondaryTextBrush}"/>
-            </StackPanel>
-        </Border>
+            </Stac
+         </Border>-->
+        
     </Grid>
 </UserControl>
